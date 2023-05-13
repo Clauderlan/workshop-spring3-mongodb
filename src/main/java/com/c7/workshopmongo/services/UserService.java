@@ -25,6 +25,17 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    public User update(String id, User user){
+        User compare = findById(id);
+        updateData(user,compare);
+        return userRepository.save(compare);
+    }
+
+    private void updateData(User user, User compare) {
+        compare.setName(user.getName());
+        compare.setEmail(user.getEmail());
+    }
+
     public void delete(String id){
         findById(id);
         userRepository.deleteById(id);
@@ -32,5 +43,4 @@ public class UserService {
     public User fromDTO(UserDTO userDTO){
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
-
 }
