@@ -3,6 +3,7 @@ package com.c7.workshopmongo.config;
 import com.c7.workshopmongo.domain.Post;
 import com.c7.workshopmongo.domain.User;
 import com.c7.workshopmongo.dto.AuthorDTO;
+import com.c7.workshopmongo.dto.CommentDTO;
 import com.c7.workshopmongo.repositories.PostRepository;
 import com.c7.workshopmongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,8 @@ public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PostRepository postRepository;
-
     @Override
     public void run(String... args) throws Exception {
 
@@ -41,5 +40,12 @@ public class Instantiation implements CommandLineRunner {
         maria.getPosts().add(post1);
         maria.getPosts().add(post2);
         userRepository.save(maria);
+
+        CommentDTO commentDTO1 = new CommentDTO("Você acha que o Vasco sobe ?", Instant.now(), new AuthorDTO(alex));
+        CommentDTO commentDTO2 = new CommentDTO("Você tem certeza disso ?", Instant.now(), new AuthorDTO(bob));
+
+        post1.getComments().addAll(Arrays.asList(commentDTO1,commentDTO2));
+        postRepository.save(post1);
+
     }
 }

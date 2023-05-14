@@ -15,5 +15,5 @@ public class PostService {
     public Post findById(String id){
         return postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
-    
+
 }
