@@ -8,6 +8,7 @@ import com.c7.workshopmongo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -29,5 +30,9 @@ public class PostService {
         System.out.println(text);
         AuthorDTO authorDTO = new AuthorDTO(userRepository.findByName(text));
         return postRepository.findByAuthor(authorDTO);
+    }
+    public List<Post> fullSearch(String text, Instant minDate, Instant maxDate){
+        maxDate = maxDate.plusMillis(Long.parseLong(String.valueOf(24*60*60*1000)));
+        return postRepository.fullSearch(text, minDate, maxDate);
     }
 }
