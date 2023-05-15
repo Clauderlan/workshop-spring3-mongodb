@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping(value = "/posts")
 public class PostResource {
@@ -26,5 +27,9 @@ public class PostResource {
         text = URL.decodeParam(text);
         return ResponseEntity.ok().body(postService.findByTitle(text));
     }
-
+    @GetMapping(value = "/authorsearch")
+    public ResponseEntity<List<Post>> findByAuthor(@RequestParam(value = "text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        return ResponseEntity.ok().body(postService.findByAuthor(text));
+    }
 }
