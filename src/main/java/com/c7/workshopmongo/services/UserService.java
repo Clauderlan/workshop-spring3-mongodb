@@ -20,6 +20,9 @@ public class UserService {
     public User findById(String id){
         return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id));
     }
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
 
     public User insert(User user){
         return userRepository.insert(user);

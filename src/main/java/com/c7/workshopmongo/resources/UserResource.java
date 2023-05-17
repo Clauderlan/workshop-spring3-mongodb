@@ -3,6 +3,7 @@ package com.c7.workshopmongo.resources;
 import com.c7.workshopmongo.domain.Post;
 import com.c7.workshopmongo.domain.User;
 import com.c7.workshopmongo.dto.UserDTO;
+import com.c7.workshopmongo.resources.util.URL;
 import com.c7.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,12 @@ public class UserResource {
         User user = userService.findById(id);
         List<Post> posts = user.getPosts();
         return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping(value = "/emailsearch")
+    public ResponseEntity<User> findByEmail(@RequestParam(value = "text", defaultValue = "") String email){
+        email = URL.decodeParam(email);
+        return ResponseEntity.ok().body(userService.findByEmail(email));
     }
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody UserDTO userDTO){
