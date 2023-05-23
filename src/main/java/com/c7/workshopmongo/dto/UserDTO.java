@@ -9,6 +9,7 @@ public class UserDTO implements Serializable {
     private String id;
     private String name;
     private String email;
+    private String authority;
 
     public UserDTO(){}
 
@@ -16,6 +17,7 @@ public class UserDTO implements Serializable {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
+        this.authority = user.getAuthority();
     }
 
     public String getId() {

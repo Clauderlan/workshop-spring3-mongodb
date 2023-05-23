@@ -5,12 +5,15 @@ import com.c7.workshopmongo.dto.UserDTO;
 import com.c7.workshopmongo.repositories.UserRepository;
 import com.c7.workshopmongo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -44,6 +47,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
     public User fromDTO(UserDTO userDTO){
-        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+        return findByEmail(userDTO.getEmail());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByName(username);
     }
 }
