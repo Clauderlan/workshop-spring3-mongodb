@@ -2,6 +2,8 @@ package com.c7.workshopmongo.services.token;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.Verification;
 import com.c7.workshopmongo.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,11 @@ public class TokenService {
                         Instant.now().plusMillis(60 * 60000)
                 )
                 .sign(Algorithm.HMAC256("secret"));
+    }
+
+    public String getSubject(String jwt){
+        Verification jwtWithSecret = JWT.require(Algorithm.HMAC256("secret"));
+        DecodedJWT decodedJWT = jwtWithSecret.withIssuer("c7").build().verify(jwt);
+        return decodedJWT.getSubject();
     }
 }

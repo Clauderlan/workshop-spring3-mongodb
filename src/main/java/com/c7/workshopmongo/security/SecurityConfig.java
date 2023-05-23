@@ -32,6 +32,7 @@ public class SecurityConfig {
             authorizeConfig.requestMatchers(HttpMethod.POST,"/login").permitAll();
             authorizeConfig.requestMatchers(HttpMethod.GET,"/users").permitAll();
             authorizeConfig.requestMatchers(HttpMethod.GET, "/posts/titlesearch").permitAll();
+            authorizeConfig.anyRequest().authenticated();
         })
                 .addFilterBefore(filterToken, UsernamePasswordAuthenticationFilter.class)
                 .build();

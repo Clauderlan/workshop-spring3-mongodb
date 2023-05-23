@@ -23,7 +23,7 @@ public class HomeResource {
     private AuthenticationManager authenticationManager;
     @GetMapping("/")
     public String home(){
-        return "<h1>HELLO</h1>";
+        return "HOME";
     }
 
     @PostMapping("/login")
